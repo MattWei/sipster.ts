@@ -22,7 +22,7 @@
     "node": ">= 8"
   },
   "dependencies": {
-    "sipster": "minoruta/sipster#for-sipster-ts"
+    "sipster": "../sipster"
   },
   "devDependencies": {
     "@types/jest": "^21.1.5",

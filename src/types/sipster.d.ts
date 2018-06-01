@@ -18,7 +18,8 @@ import {
     Media,
     AudioMedia,
     AudioMediaPlayer,
-    AudioMediaRecorder
+    AudioMediaRecorder,
+    Buddy
 } from '../Sipster';
 
 export {
@@ -36,7 +37,8 @@ export {
     Media,
     AudioMedia,
     AudioMediaPlayer,
-    AudioMediaRecorder
+    AudioMediaRecorder,
+    Buddy
 };
 
 export function init(epConfig: EpConfig): void;
@@ -59,10 +61,32 @@ export namespace createRecorder {
     const prototype: {};
 }
 
-export function createPlayer(filename: string, options?: number): AudioMediaPlayer;
+export function createPlayer(options?: number): AudioMediaPlayer; //filename: string, 
 export namespace createPlayer {
     const prototype: {};
 }
+
+/*
+export function startLocalRecord(filename:string):boolean;
+export namespace startLocalRecord {
+    const prototype: {};
+}
+
+export function stopLocalRecord(): boolean;
+export namespace stopLocalRecord {
+    const prototype: {};
+}
+
+export function startLocalPlay(filename:string):boolean;
+export namespace startLocalPlay {
+    const prototype: {};
+}
+
+export function stopLocalPlay():boolean;
+export namespace stopLocalPlay {
+    const prototype: {};
+}
+*/
 
 export const version: {
     major: number,

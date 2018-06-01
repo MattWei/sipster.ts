@@ -196,6 +196,14 @@ export declare class Transport extends EventEmitter {
      readonly enabled: boolean;
 }
 
+export declare class Buddy extends EventEmitter {
+    constructor();
+
+    /** send instant message */
+    sendInstantMessage(message:string): void;
+    subscribePresence(subscribe:boolean):void;
+}
+
 /** @see {@link http://www.pjsip.org/pjsip/docs/html/classpj_1_1Account.htm|Account} */
 export declare class Account extends EventEmitter {
     constructor(config: AccountConfig);
@@ -225,7 +233,13 @@ export declare class Account extends EventEmitter {
      */
     setTransport(transport: Transport): void;
     /**  Start a new SIP call to destination. */
-    makeCall(destination: string): Call;
+    makeCall(destination: string, param?:string, auto?:boolean): Call;
+
+    /** add buddy */
+    addBuddy(buddyUri:string, subscribePresence:boolean): Buddy;
+    
+    delBuddy(buddyUri:string): void;
+    
     /** Is the Account still valid? */
     readonly valid: boolean;
     /** Is this the default Account for when no other Account matches a request? */
@@ -233,7 +247,7 @@ export declare class Account extends EventEmitter {
 }
 
 /** @see {@link http://www.pjsip.org/pjsip/docs/html/classpj_1_1Media.htm|Media} */
-export declare class Media {
+export declare class Media extends EventEmitter {
     /**
      * Immediately closes the Media. This can be useful to do explicitly
      * since v8's garbage collector is quite lazy. After calling this,
@@ -289,12 +303,18 @@ export declare class AudioMedia extends Media {
  * @see {@link http://www.pjsip.org/pjsip/docs/html/classpj_1_1AudioMediaPlayer.htm|AudioMediaPlayer}
  */
 export declare class AudioMediaPlayer extends AudioMedia {
+    playSong(songPath:string):void;
+
+    startLocalPlay():void;
+    stopLocalPlay():void;
 }
 
 /**
  * @see {@link http://www.pjsip.org/pjsip/docs/html/classpj_1_1AudioMediaRecorder.htm|AudioMediaRecorder}
  */
 export declare class AudioMediaRecorder extends AudioMedia {
+    startLocalRecord():void;
+    stopLocalRecord():void;
 }
 
 export interface Version {
@@ -359,13 +379,31 @@ export class Sipster {
         sipster.start();
     }
 
-    createPlayer(filename: string, options?: number): AudioMediaPlayer {
-        return sipster.createPlayer(filename, options);
+    createPlayer(options?: number): AudioMediaPlayer { //filename: string, 
+        return sipster.createPlayer(options); //filename
     }
 
     createRecorder(filename: string): AudioMediaRecorder {
         return sipster.createRecorder(filename);
     }
+
+    /*
+    startLocalRecord(filename:string):boolean {
+        return sipster.startLocalRecord(filename);
+    }
+
+    stopLocalRecord(): boolean {
+        return sipster.stopLocalRecord();
+    }
+
+    startLocalPlay(filename:string):boolean {
+        return sipster.startLocalPlay(filename);
+    }
+
+    stopLocalPlay():boolean {
+        return sipster.stopLocalPlay();
+    }
+    */
 }
 
 const DEFAULT_REG_CONFIG = {
