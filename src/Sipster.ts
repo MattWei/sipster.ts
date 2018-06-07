@@ -375,6 +375,10 @@ export class Sipster {
         return sipster.mediaMaxPorts;
     }
 
+    get enumDevs() {
+        return sipster.enumDevs;
+    }
+    
     start(): void {
         sipster.start();
     }

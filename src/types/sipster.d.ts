@@ -103,3 +103,4 @@ export const state: string;
 
 export const mediaActivePorts: number;
 export const mediaMaxPorts: number;
+export const enumDevs:Array<any>;

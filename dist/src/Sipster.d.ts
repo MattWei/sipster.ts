@@ -311,6 +311,8 @@ export declare class Sipster {
     readonly state: string;
     readonly mediaActivePorts: number;
     readonly mediaMaxPorts: number;
+    readonly enumDevs:Array<any>;
+    
     start(): void;
     createPlayer(options?: number): AudioMediaPlayer; //filename: string, 
     createRecorder(filename: string): AudioMediaRecorder;

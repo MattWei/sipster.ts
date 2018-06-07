@@ -48,6 +48,11 @@ class Sipster {
     get mediaMaxPorts() {
         return sipster.mediaMaxPorts;
     }
+
+    get enumDevs() {
+        return sipster.enumDevs;
+    }
+    
     start() {
         sipster.start();
     }
