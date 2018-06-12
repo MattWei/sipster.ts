@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import { EventEmitter } from 'events';
 /** @see {@link http://www.pjsip.org/pjsip/docs/html/structpj_1_1LogConfig.htm|LogConfig} */
 export interface LogConfig {
@@ -104,6 +105,7 @@ export declare class Call extends EventEmitter {
     readonly hasMedia: boolean;
     /** True if the call has an active INVITE session and the INVITE session has not been disconnected. */
     readonly isActive: boolean;
+    readonly callInfo: CallInfo;
 }
 export interface TransportInfo {
     /** Transport type name. */
@@ -179,7 +181,7 @@ export declare class Buddy extends EventEmitter {
     constructor();
     /** send instant message */
     sendInstantMessage(message: string): void;
-    subscribePresence(subscribe:boolean):void;
+    subscribePresence(subscribe: boolean): void;
 }
 /** @see {@link http://www.pjsip.org/pjsip/docs/html/classpj_1_1Account.htm|Account} */
 export declare class Account extends EventEmitter {
@@ -210,13 +212,10 @@ export declare class Account extends EventEmitter {
      */
     setTransport(transport: Transport): void;
     /**  Start a new SIP call to destination. */
-    makeCall(destination: string, param?: string, auto?: boolean): Call;
+    makeCall(destination: string, param?: string, audioDeviceId?:number): Call;
     /** add buddy */
-    addBuddy(buddyUri: string, subscribePresence:boolean): Buddy;
-
-    /** add buddy */
+    addBuddy(buddyUri: string, subscribePresence: boolean): Buddy;
     delBuddy(buddyUri: string): void;
-
     /** Is the Account still valid? */
     readonly valid: boolean;
     /** Is this the default Account for when no other Account matches a request? */
@@ -277,17 +276,16 @@ export declare class AudioMedia extends Media {
  */
 export declare class AudioMediaPlayer extends AudioMedia {
     playSong(songPath: string): void;
-    startLocalPlay():void;
-    stopLocalPlay():void;
+    startLocalPlay(): void;
+    stopLocalPlay(): void;
 }
 /**
  * @see {@link http://www.pjsip.org/pjsip/docs/html/classpj_1_1AudioMediaRecorder.htm|AudioMediaRecorder}
  */
 export declare class AudioMediaRecorder extends AudioMedia {
-    startLocalRecord():void;
-    stopLocalRecord():void;
+    startLocalRecord(): void;
+    stopLocalRecord(): void;
 }
-
 export interface Version {
     major: number;
     minor: number;
@@ -295,6 +293,13 @@ export interface Version {
     suffix: string;
     full: string;
     numeric: number;
+}
+
+export interface AudioDevInfo {
+    name: string;
+    inputCount: number;
+    outputCount: number;
+    driver: string;
 }
 export declare class Sipster {
     private static _instance;
@@ -311,17 +316,10 @@ export declare class Sipster {
     readonly state: string;
     readonly mediaActivePorts: number;
     readonly mediaMaxPorts: number;
-    readonly enumDevs:Array<any>;
-    
+    readonly enumDevs: Array<AudioDevInfo>;
     start(): void;
-    createPlayer(options?: number): AudioMediaPlayer; //filename: string, 
+    createPlayer(options?: number): AudioMediaPlayer;
     createRecorder(filename: string): AudioMediaRecorder;
-
-    startLocalRecord(filename:string):boolean;
-    stopLocalRecord(): boolean;
-
-    startLocalPlay(filename:string):boolean;
-    stopLocalPlay():boolean;
 }
 /**
  * Complement the specified account config with default value.

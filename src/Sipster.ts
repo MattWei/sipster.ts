@@ -120,6 +120,7 @@ export declare class Call extends EventEmitter {
     readonly hasMedia: boolean;
     /** True if the call has an active INVITE session and the INVITE session has not been disconnected. */
     readonly isActive: boolean;
+    readonly callInfo:CallInfo;
 }
 
 export interface TransportInfo {
@@ -233,7 +234,7 @@ export declare class Account extends EventEmitter {
      */
     setTransport(transport: Transport): void;
     /**  Start a new SIP call to destination. */
-    makeCall(destination: string, param?:string, auto?:boolean): Call;
+    makeCall(destination: string, param?:string, audioDeviceId?:number): Call;
 
     /** add buddy */
     addBuddy(buddyUri:string, subscribePresence:boolean): Buddy;
@@ -326,6 +327,13 @@ export interface Version {
     numeric: number;
 }
 
+export interface AudioDevInfo {
+    name:string;
+    inputCount:number;
+    outputCount:number;
+    driver:string;
+}
+
 export class Sipster {
 
     private static _instance: Sipster;
@@ -375,7 +383,7 @@ export class Sipster {
         return sipster.mediaMaxPorts;
     }
 
-    get enumDevs() {
+    get enumDevs():Array<AudioDevInfo> {
         return sipster.enumDevs;
     }
     

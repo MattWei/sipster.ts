@@ -97,6 +97,13 @@ export const version: {
     numeric: number
 };
 
+export interface AudioDevInfo {
+    name:string;
+    inputCount:number;
+    outputCount:number;
+    driver:string;
+}
+
 export const config: EpConfig;
 
 export const state: string;

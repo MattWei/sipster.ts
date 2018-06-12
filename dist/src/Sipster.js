@@ -5,8 +5,8 @@
  * @see {@link http://www.pjsip.org/docs/book-latest/html/intro_pjsua2.html|PJSUA2-High Level API}
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-
 const sipster = window.require("sipster");
+//const sipster = require("sipster");
 const events_1 = require("events");
 class Sipster {
     /**
@@ -48,38 +48,18 @@ class Sipster {
     get mediaMaxPorts() {
         return sipster.mediaMaxPorts;
     }
-
     get enumDevs() {
         return sipster.enumDevs;
     }
-    
     start() {
         sipster.start();
     }
     createPlayer(options) {
-        return sipster.createPlayer(options);
+        return sipster.createPlayer(options); //filename
     }
     createRecorder(filename) {
         return sipster.createRecorder(filename);
     }
-
-    /*
-    startLocalRecord(filename) {
-        return sipster.startLocalRecord(filename);
-    }
-
-    stopLocalRecord() {
-        return sipster.stopLocalRecord();
-    }
-
-    startLocalPlay(filename) {
-        return sipster.startLocalPlay(filename);
-    }
-
-    stopLocalPlay() {
-        return sipster.stopLocalPlay();
-    }
-    */
 }
 exports.Sipster = Sipster;
 const DEFAULT_REG_CONFIG = {
