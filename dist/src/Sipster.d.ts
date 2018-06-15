@@ -270,6 +270,8 @@ export declare class AudioMedia extends Media {
     readonly rxLevel: number;
     /** Returns the last transmitted signal level. */
     readonly txLevel: number;
+
+    readonly status:string;
 }
 /**
  * @see {@link http://www.pjsip.org/pjsip/docs/html/classpj_1_1AudioMediaPlayer.htm|AudioMediaPlayer}
