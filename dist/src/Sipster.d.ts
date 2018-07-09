@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import { EventEmitter } from 'events';
 /** @see {@link http://www.pjsip.org/pjsip/docs/html/structpj_1_1LogConfig.htm|LogConfig} */
 export interface LogConfig {
@@ -212,7 +211,7 @@ export declare class Account extends EventEmitter {
      */
     setTransport(transport: Transport): void;
     /**  Start a new SIP call to destination. */
-    makeCall(destination: string, param?: string, audioDeviceId?:number): Call;
+    makeCall(destination: string, param: string, audioDeviceId: number, startTonePath?: string, stopTonePath?:string): Call;
     /** add buddy */
     addBuddy(buddyUri: string, subscribePresence: boolean): Buddy;
     delBuddy(buddyUri: string): void;
@@ -270,8 +269,7 @@ export declare class AudioMedia extends Media {
     readonly rxLevel: number;
     /** Returns the last transmitted signal level. */
     readonly txLevel: number;
-
-    readonly status:string;
+    readonly status: string;
 }
 /**
  * @see {@link http://www.pjsip.org/pjsip/docs/html/classpj_1_1AudioMediaPlayer.htm|AudioMediaPlayer}
@@ -296,7 +294,6 @@ export interface Version {
     full: string;
     numeric: number;
 }
-
 export interface AudioDevInfo {
     name: string;
     inputCount: number;
@@ -305,12 +302,15 @@ export interface AudioDevInfo {
 }
 export declare class Sipster {
     private static _instance;
+    private static config;
+    private haveInit;
     /**
      * @throws {Error}  the instance already exists
      * @throws {Error}  no config specified
      */
-    static instance(config?: EpConfig): Sipster;
-    protected constructor(config: EpConfig);
+    static instance(): Sipster;
+    protected constructor();
+    init(config: EpConfig): void;
     static readonly version: Version;
     readonly Transport: any;
     readonly Account: any;
@@ -322,6 +322,7 @@ export declare class Sipster {
     start(): void;
     createPlayer(options?: number): AudioMediaPlayer;
     createRecorder(filename: string): AudioMediaRecorder;
+    disconnect(): Promise<void>;
 }
 /**
  * Complement the specified account config with default value.

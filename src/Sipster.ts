@@ -234,7 +234,7 @@ export declare class Account extends EventEmitter {
      */
     setTransport(transport: Transport): void;
     /**  Start a new SIP call to destination. */
-    makeCall(destination: string, param?:string, audioDeviceId?:number): Call;
+    makeCall(destination: string, param:string, audioDeviceId:number, startTonePath?: string, stopTonePath?:string): Call;
 
     /** add buddy */
     addBuddy(buddyUri:string, subscribePresence:boolean): Buddy;
@@ -337,29 +337,35 @@ export interface AudioDevInfo {
 }
 
 export class Sipster {
-
     private static _instance: Sipster;
+    private static config:EpConfig;
+    private haveInit:boolean;
 
     /**
      * @throws {Error}  the instance already exists
      * @throws {Error}  no config specified
      */
-    static instance(config?: EpConfig): Sipster {
+    static instance(): Sipster {
         if (this._instance) {
-            if (config)
-                throw new Error('the instance already exists');
             return this._instance;
         }
-        if (!config)
-            throw new Error('no config specified');
-        this._instance = new Sipster(config);
+        
+        this._instance = new Sipster();
         return this._instance;
     }
 
-    protected constructor(config: EpConfig) {
-        sipster.init(config);
+    protected constructor() {
+        this.haveInit = false;
     }
 
+    init(config: EpConfig) {
+        if (!config)
+            throw new Error('no config specified');
+
+        sipster.init(config);
+        this.haveInit = true;
+    }
+    
     static get version(): Version {
         return sipster.version;
     }
@@ -401,6 +407,18 @@ export class Sipster {
         return sipster.createRecorder(filename);
     }
 
+    disconnect():Promise<void> {
+        return new Promise((resolve) => {
+            if (!this.haveInit) {
+                resolve();
+            }
+            sipster.disconnect();
+            this.haveInit = false;
+
+            resolve();
+        })
+
+    }
     /*
     startLocalRecord(filename:string):boolean {
         return sipster.startLocalRecord(filename);

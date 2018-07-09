@@ -51,6 +51,11 @@ export namespace start {
     const prototype: {};
 }
 
+export function disconnect(): void;
+export namespace disconnect {
+    const prototype: {};
+}
+
 export function hangupAllCalls(): void;
 export namespace hangupAllCalls {
     const prototype: {};

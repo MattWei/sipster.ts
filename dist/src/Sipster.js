@@ -7,25 +7,28 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const sipster = window.require("sipster");
 //const sipster = require("sipster");
+
 const events_1 = require("events");
 class Sipster {
     /**
      * @throws {Error}  the instance already exists
      * @throws {Error}  no config specified
      */
-    static instance(config) {
+    static instance() {
         if (this._instance) {
-            if (config)
-                throw new Error('the instance already exists');
             return this._instance;
         }
-        if (!config)
-            throw new Error('no config specified');
-        this._instance = new Sipster(config);
+        this._instance = new Sipster();
         return this._instance;
     }
-    constructor(config) {
+    constructor() {
+        this.haveInit = false;
+    }
+    init(config) {
+        if (!config)
+            throw new Error('no config specified');
         sipster.init(config);
+        this.haveInit = true;
     }
     static get version() {
         return sipster.version;
@@ -59,6 +62,16 @@ class Sipster {
     }
     createRecorder(filename) {
         return sipster.createRecorder(filename);
+    }
+    disconnect() {
+        return new Promise((resolve) => {
+            if (!this.haveInit) {
+                resolve();
+            }
+            sipster.disconnect();
+            this.haveInit = false;
+            resolve();
+        });
     }
 }
 exports.Sipster = Sipster;
