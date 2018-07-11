@@ -89,6 +89,9 @@ export declare class Call extends EventEmitter {
     transfer(destination: string): void;
     /** Sends DTMF digits to the remote end using the RFC 2833 payload format. */
     dtmf(digits: string): void;
+
+    play(music: string): void;
+    
     /**
      * Returns formatted statistics about the call.
      * If inclMediaStats is true, then statistics about the Call's media is

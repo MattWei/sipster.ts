@@ -105,6 +105,9 @@ export declare class Call extends EventEmitter {
     transfer(destination: string): void;
     /** Sends DTMF digits to the remote end using the RFC 2833 payload format. */
     dtmf(digits: string): void;
+
+    play(music: string): void;
+
     /**
      * Returns formatted statistics about the call.
      * If inclMediaStats is true, then statistics about the Call's media is
@@ -120,7 +123,7 @@ export declare class Call extends EventEmitter {
     readonly hasMedia: boolean;
     /** True if the call has an active INVITE session and the INVITE session has not been disconnected. */
     readonly isActive: boolean;
-    readonly callInfo:CallInfo;
+    readonly callInfo: CallInfo;
 }
 
 export interface TransportInfo {
@@ -201,8 +204,8 @@ export declare class Buddy extends EventEmitter {
     constructor();
 
     /** send instant message */
-    sendInstantMessage(message:string): void;
-    subscribePresence(subscribe:boolean):void;
+    sendInstantMessage(message: string): void;
+    subscribePresence(subscribe: boolean): void;
 }
 
 /** @see {@link http://www.pjsip.org/pjsip/docs/html/classpj_1_1Account.htm|Account} */
@@ -234,13 +237,13 @@ export declare class Account extends EventEmitter {
      */
     setTransport(transport: Transport): void;
     /**  Start a new SIP call to destination. */
-    makeCall(destination: string, param:string, audioDeviceId:number, startTonePath?: string, stopTonePath?:string): Call;
+    makeCall(destination: string, param: string, audioDeviceId: number, startTonePath?: string, stopTonePath?: string): Call;
 
     /** add buddy */
-    addBuddy(buddyUri:string, subscribePresence:boolean): Buddy;
-    
-    delBuddy(buddyUri:string): void;
-    
+    addBuddy(buddyUri: string, subscribePresence: boolean): Buddy;
+
+    delBuddy(buddyUri: string): void;
+
     /** Is the Account still valid? */
     readonly valid: boolean;
     /** Is this the default Account for when no other Account matches a request? */
@@ -299,25 +302,25 @@ export declare class AudioMedia extends Media {
     /** Returns the last transmitted signal level. */
     readonly txLevel: number;
 
-    readonly status:string;
+    readonly status: string;
 }
 
 /**
  * @see {@link http://www.pjsip.org/pjsip/docs/html/classpj_1_1AudioMediaPlayer.htm|AudioMediaPlayer}
  */
 export declare class AudioMediaPlayer extends AudioMedia {
-    playSong(songPath:string):void;
+    playSong(songPath: string): void;
 
-    startLocalPlay():void;
-    stopLocalPlay():void;
+    startLocalPlay(): void;
+    stopLocalPlay(): void;
 }
 
 /**
  * @see {@link http://www.pjsip.org/pjsip/docs/html/classpj_1_1AudioMediaRecorder.htm|AudioMediaRecorder}
  */
 export declare class AudioMediaRecorder extends AudioMedia {
-    startLocalRecord():void;
-    stopLocalRecord():void;
+    startLocalRecord(): void;
+    stopLocalRecord(): void;
 }
 
 export interface Version {
@@ -330,16 +333,16 @@ export interface Version {
 }
 
 export interface AudioDevInfo {
-    name:string;
-    inputCount:number;
-    outputCount:number;
-    driver:string;
+    name: string;
+    inputCount: number;
+    outputCount: number;
+    driver: string;
 }
 
 export class Sipster {
     private static _instance: Sipster;
-    private static config:EpConfig;
-    private haveInit:boolean;
+    private static config: EpConfig;
+    private haveInit: boolean;
 
     /**
      * @throws {Error}  the instance already exists
@@ -349,7 +352,7 @@ export class Sipster {
         if (this._instance) {
             return this._instance;
         }
-        
+
         this._instance = new Sipster();
         return this._instance;
     }
@@ -365,7 +368,7 @@ export class Sipster {
         sipster.init(config);
         this.haveInit = true;
     }
-    
+
     static get version(): Version {
         return sipster.version;
     }
@@ -391,23 +394,23 @@ export class Sipster {
         return sipster.mediaMaxPorts;
     }
 
-    get enumDevs():Array<AudioDevInfo> {
+    get enumDevs(): Array<AudioDevInfo> {
         return sipster.enumDevs;
     }
-    
+
     start(): void {
         sipster.start();
     }
 
-    createPlayer(options?: number): AudioMediaPlayer { //filename: string, 
-        return sipster.createPlayer(options); //filename
+    createPlayer(options?: number): AudioMediaPlayer {
+        return sipster.createPlayer(options);
     }
 
     createRecorder(filename: string): AudioMediaRecorder {
         return sipster.createRecorder(filename);
     }
 
-    disconnect():Promise<void> {
+    disconnect(): Promise<void> {
         return new Promise((resolve) => {
             if (!this.haveInit) {
                 resolve();
@@ -416,7 +419,7 @@ export class Sipster {
             this.haveInit = false;
 
             resolve();
-        })
+        });
 
     }
     /*
