@@ -185,6 +185,13 @@ export declare class Buddy extends EventEmitter {
     sendInstantMessage(message: string): void;
     subscribePresence(subscribe: boolean): void;
 }
+
+export declare class SipPlatform extends EventEmitter {
+    constructor();
+    init(): void;
+    readonly verifyDog: boolean;
+}
+
 /** @see {@link http://www.pjsip.org/pjsip/docs/html/classpj_1_1Account.htm|Account} */
 export declare class Account extends EventEmitter {
     constructor(config: AccountConfig);
@@ -317,15 +324,18 @@ export declare class Sipster {
     static readonly version: Version;
     readonly Transport: any;
     readonly Account: any;
+    //readonly SipPlatform: any;
     readonly config: EpConfig;
     readonly state: string;
     readonly mediaActivePorts: number;
     readonly mediaMaxPorts: number;
     readonly enumDevs: Array<AudioDevInfo>;
+
     start(): void;
-    createPlayer(options?: number): AudioMediaPlayer;
+    createPlayer(filename: string): AudioMediaPlayer;
     createRecorder(filename: string): AudioMediaRecorder;
     disconnect(): Promise<void>;
+    systemInit(): SipPlatform;
 }
 /**
  * Complement the specified account config with default value.

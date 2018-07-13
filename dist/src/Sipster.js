@@ -39,6 +39,11 @@ class Sipster {
     get Account() {
         return sipster.Account;
     }
+
+    get SipPlatform() {
+        return sipster.SipPlatform;
+    }
+
     get config() {
         return sipster.config;
     }
@@ -57,8 +62,8 @@ class Sipster {
     start() {
         sipster.start();
     }
-    createPlayer(options) {
-        return sipster.createPlayer(options); //filename
+    createPlayer(filename) {
+        return sipster.createPlayer(filename);
     }
     createRecorder(filename) {
         return sipster.createRecorder(filename);
@@ -73,7 +78,12 @@ class Sipster {
             resolve();
         });
     }
+
+    systemInit() {
+        return sipster.systemInit();
+    }
 }
+
 exports.Sipster = Sipster;
 const DEFAULT_REG_CONFIG = {
     registerOnAdd: true,

@@ -208,6 +208,12 @@ export declare class Buddy extends EventEmitter {
     subscribePresence(subscribe: boolean): void;
 }
 
+export declare class SipPlatform extends EventEmitter {
+    constructor();
+    init(): void;
+    readonly verifyDog: boolean;
+}
+
 /** @see {@link http://www.pjsip.org/pjsip/docs/html/classpj_1_1Account.htm|Account} */
 export declare class Account extends EventEmitter {
     constructor(config: AccountConfig);
@@ -381,6 +387,10 @@ export class Sipster {
         return sipster.Account;
     }
 
+    get SipPlatform(): any {
+        return sipster.SipPlatform;
+    }
+
     get config(): EpConfig {
         return sipster.config;
     }
@@ -402,8 +412,8 @@ export class Sipster {
         sipster.start();
     }
 
-    createPlayer(options?: number): AudioMediaPlayer {
-        return sipster.createPlayer(options);
+    createPlayer(filename: string): AudioMediaPlayer {
+        return sipster.createPlayer(filename);
     }
 
     createRecorder(filename: string): AudioMediaRecorder {
@@ -421,6 +431,10 @@ export class Sipster {
             resolve();
         });
 
+    }
+
+    systemInit(): SipPlatform {
+        return sipster.systemInit();
     }
     /*
     startLocalRecord(filename:string):boolean {

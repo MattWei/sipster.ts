@@ -19,7 +19,8 @@ import {
     AudioMedia,
     AudioMediaPlayer,
     AudioMediaRecorder,
-    Buddy
+    Buddy,
+    SipPlatform
 } from '../Sipster';
 
 export {
@@ -38,7 +39,8 @@ export {
     AudioMedia,
     AudioMediaPlayer,
     AudioMediaRecorder,
-    Buddy
+    Buddy,
+    SipPlatform
 };
 
 export function init(epConfig: EpConfig): void;
@@ -66,11 +68,15 @@ export namespace createRecorder {
     const prototype: {};
 }
 
-export function createPlayer(options?: number): AudioMediaPlayer; //filename: string, 
+export function createPlayer(filename: string): AudioMediaPlayer;
 export namespace createPlayer {
     const prototype: {};
 }
 
+export function systemInit(): SipPlatform;
+export namespace systemInit {
+    const prototype: {};
+}
 /*
 export function startLocalRecord(filename:string):boolean;
 export namespace startLocalRecord {
