@@ -408,6 +408,10 @@ export class Sipster {
         return sipster.enumDevs;
     }
 
+    get codecEnum(): Array<string> {
+        return sipster.codecEnum;
+    }
+
     start(): void {
         sipster.start();
     }
@@ -435,6 +439,10 @@ export class Sipster {
 
     systemInit(): SipPlatform {
         return sipster.systemInit();
+    }
+
+    setCodecPriority(codecId: string, priority: number) {
+        sipster.setCodecPriority(codecId, priority);
     }
     /*
     startLocalRecord(filename:string):boolean {

@@ -77,6 +77,12 @@ export function systemInit(): SipPlatform;
 export namespace systemInit {
     const prototype: {};
 }
+
+export function setCodecPriority(codecId: string, priority: number): void;
+export namespace setCodecPriority {
+    const prototype: {};
+}
+
 /*
 export function startLocalRecord(filename:string):boolean;
 export namespace startLocalRecord {
@@ -122,3 +128,4 @@ export const state: string;
 export const mediaActivePorts: number;
 export const mediaMaxPorts: number;
 export const enumDevs:Array<any>;
+export const codecEnum: Array<string>

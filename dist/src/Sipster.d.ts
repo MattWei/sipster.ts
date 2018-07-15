@@ -3,6 +3,7 @@ import { EventEmitter } from 'events';
 export interface LogConfig {
     level: number;
     consoleLevel: number;
+    writer: (level: number, msg: string, threadId: number, threadName: string) => void;
 }
 /** @see {@link http://www.pjsip.org/pjsip/docs/html/structpj_1_1EpConfig.htm|EpConfig} */
 export interface EpConfig {
@@ -330,12 +331,14 @@ export declare class Sipster {
     readonly mediaActivePorts: number;
     readonly mediaMaxPorts: number;
     readonly enumDevs: Array<AudioDevInfo>;
-
+    readonly codecEnum: Array<string>;
+    
     start(): void;
     createPlayer(filename: string): AudioMediaPlayer;
     createRecorder(filename: string): AudioMediaRecorder;
     disconnect(): Promise<void>;
     systemInit(): SipPlatform;
+    setCodecPriority(codecId: string, priority: number): void;
 }
 /**
  * Complement the specified account config with default value.

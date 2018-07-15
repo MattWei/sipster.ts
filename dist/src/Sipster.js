@@ -59,6 +59,11 @@ class Sipster {
     get enumDevs() {
         return sipster.enumDevs;
     }
+
+    get codecEnum() {
+        return sipster.codecEnum;
+    }
+    
     start() {
         sipster.start();
     }
@@ -81,6 +86,11 @@ class Sipster {
 
     systemInit() {
         return sipster.systemInit();
+    }
+
+    setCodecPriority(codecId, priority) {
+        console.log("Set " + codecId + " priority to " + priority);
+        sipster.setCodecPriority(codecId, priority);
     }
 }
 
