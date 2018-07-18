@@ -5,6 +5,18 @@
  * @see {@link http://www.pjsip.org/docs/book-latest/html/intro_pjsua2.html|PJSUA2-High Level API}
  */
 Object.defineProperty(exports, "__esModule", { value: true });
+
+/*
+console.log("navigator.appVersion:" + navigator.appVersion);
+var sipster = null;
+if (navigator.appVersion.indexOf("Electron") === -1) {
+    console.log("on browser");
+    sipster = null;
+} else {
+    console.log("on electron");
+    sipster = window.require("sipster");
+}
+*/
 const sipster = window.require("sipster");
 //const sipster = require("sipster");
 

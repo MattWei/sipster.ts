@@ -202,6 +202,8 @@ export declare class Account extends EventEmitter {
     ref(): void;
     /** Reconfigure the Account with the given accountConfig. */
     modify(config: AccountConfig): void;
+
+    delete(): void;
     /** Returns information (AccountConfig) about the account */
     getInfo(): AccountInfo;
     /**
